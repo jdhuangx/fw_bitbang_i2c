@@ -7,14 +7,17 @@
 #include "nrf_gpio.h"
 #include "nrf_delay.h"
 
+#include "FreeRTOS.h"
+#include "task.h"
+
 typedef struct{
   uint32_t sda_pin;
   uint32_t scl_pin; 
 }BBI2C;
 
-#define BBI2C_DELAY()   nrf_delay_us(10);
-//#define BBI2C_DELAY()   nrf_delay_ms(1)
-//#define BBI2C_DELAY()   do{for(int q=0;q<100;q++){}}while(0)
+#define BBI2C_DELAY()   nrf_delay_us(5);
+//#define BBI2C_DELAY()   vTaskDelay(1);
+//#define BBI2C_DELAY()   do{for(int q=0;q<500;q++){}}while(0)
 
 void bbi2c_setup(BBI2C* bb,uint32_t sda,uint32_t scl);
 bool bbi2c_write(BBI2C* bb,uint8_t add,uint8_t* dat,int32_t len,bool req_no_stop);
